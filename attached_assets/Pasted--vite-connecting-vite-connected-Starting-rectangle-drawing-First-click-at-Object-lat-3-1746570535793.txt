@@ -1,0 +1,36 @@
+[vite] connecting...
+[vite] connected.
+Starting rectangle drawing...
+First click at: 
+Object {lat: 37.791337175930714, lng: -122.39748001098634}
+Warning: Invalid DOM property &#x60;stroke-width&#x60;. Did you mean &#x60;strokeWidth&#x60;?
+    at rect
+    at svg
+    at div
+    at div
+    at div
+    at MapContainer (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/src/components/map-container.tsx:27:18)
+    at div
+    at Home (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/src/pages/home.tsx:31:49)
+    at Route (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=51a2fcb8:280:16)
+    at Switch (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=51a2fcb8:336:17)
+    at Router
+    at QueryClientProvider (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=51a2fcb8:2879:3)
+    at App
+at rect
+at svg
+at div
+at div
+at div
+at MapContainer (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/src/components/map-container.tsx:27:18)
+at div
+at Home (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/src/pages/home.tsx:31:49)
+at Route (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=51a2fcb8:280:16)
+at Switch (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=51a2fcb8:336:17)
+at Router
+at QueryClientProvider (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=51a2fcb8:2879:3)
+at App
+at t.value (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://bd2ffbb6-476e-4285-a81b-f9c4cae70dbf-00-3bforqo0mxaur.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
