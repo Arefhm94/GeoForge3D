@@ -160,6 +160,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(500).json({ error: "Failed to fetch analysis results" });
     }
   });
+  
+  // Building footprints API endpoint
+  app.get(`${apiPrefix}/buildings`, async (req, res) => {
+    try {
+      const { north, south, east, west, sources = 'osm,microsoft' } = req.query;
+      
+      // Validate parameters
+      if (!north || !south || !east || !west) {
+        return res.status(400).json({ 
+          error: 'Missing required parameters: north, south, east, west'
+        });
+      }
+      
+      // Check if values are valid numbers
+      const coordinates = { north, south, east, west };
+      for (const [key, value] of Object.entries(coordinates)) {
+        const num = parseFloat(value as string);
+        if (isNaN(num)) {
+          return res.status(400).json({ 
+            error: `Invalid ${key} coordinate: ${value}`
+          });
+        }
+      }
+      
+      // Run the Python script to fetch building footprints
+      const pythonScript = path.resolve(__dirname, 'python/fetch_buildings.py');
+      
+      const pythonProcess = spawn('python', [
+        pythonScript,
+        '--north', north as string,
+        '--south', south as string,
+        '--east', east as string,
+        '--west', west as string,
+        '--sources', sources as string,
+        '--format', 'geojson'
+      ]);
+      
+      let jsonData = '';
+      let errorOutput = '';
+      
+      pythonProcess.stdout.on('data', (data) => {
+        jsonData += data.toString();
+      });
+      
+      pythonProcess.stderr.on('data', (data) => {
+        errorOutput += data.toString();
+      });
+      
+      pythonProcess.on('close', (code) => {
+        if (code !== 0) {
+          console.error(`Python script exited with code ${code}`);
+          console.error(errorOutput);
+          return res.status(500).json({ 
+            error: 'Failed to fetch building footprints',
+            details: errorOutput
+          });
+        }
+        
+        try {
+          // Parse the JSON output from the Python script
+          const buildingData = JSON.parse(jsonData);
+          res.json(buildingData);
+        } catch (err) {
+          console.error('Error parsing JSON output:', err);
+          res.status(500).json({ 
+            error: 'Failed to parse building footprints data',
+            details: jsonData
+          });
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error fetching building footprints:', error);
+      res.status(500).json({ 
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

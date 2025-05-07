@@ -5,6 +5,7 @@ import "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import { calculateArea } from "@/lib/calculate-area";
 import { downloadBlob } from "@/lib/utils";
+import useBuildingFootprints from "@/hooks/use-building-footprints";
 
 interface GeoJSONLayer {
   id: string;
@@ -17,6 +18,7 @@ export default function MapContainer() {
   const isMapInitializedRef = useRef(false);
   const rectangleRef = useRef<L.Rectangle | null>(null);
   const [selectedArea, setSelectedArea] = useState<number | null>(null);
+  const [drawnRectangle, setDrawnRectangle] = useState<L.LatLngBounds | null>(null);
   
   // Variables for rectangle drawing
   const [isDrawing, setIsDrawing] = useState(false);
@@ -25,6 +27,17 @@ export default function MapContainer() {
   // Drag and drop GeoJSON state
   const [isDragging, setIsDragging] = useState(false);
   const [geoJSONLayers, setGeoJSONLayers] = useState<GeoJSONLayer[]>([]);
+  
+  // Building footprints functionality
+  const { 
+    fetchBuildingFootprints, 
+    isVisible: buildingsVisible,
+    toggleVisibility: toggleBuildingsVisibility,
+    currentLayer: buildingsLayer
+  } = useBuildingFootprints({
+    bounds: drawnRectangle,
+    enabled: true
+  });
   
   // Setup map when the component mounts
   useEffect(() => {
@@ -233,6 +246,9 @@ export default function MapContainer() {
             const bounds = L.latLngBounds(firstPoint, secondClickEvent.latlng);
             const area = calculateArea(bounds);
             
+            // Set drawn rectangle bounds for building footprints
+            setDrawnRectangle(bounds);
+            
             // Get coordinates for display
             const sw = bounds.getSouthWest();
             const se = bounds.getSouthEast();
@@ -322,8 +338,9 @@ export default function MapContainer() {
               // Clear the reference
               rectangleRef.current = null;
               
-              // Clear the selected area
+              // Clear the selected area and drawn rectangle state
               setSelectedArea(null);
+              setDrawnRectangle(null);
             };
             
             // Add popup with area information and action buttons
@@ -436,6 +453,13 @@ export default function MapContainer() {
       }
     };
   }, [isDrawing, startPoint]);
+  
+  // Fetch building footprints when rectangle is drawn
+  useEffect(() => {
+    if (mapRef.current && drawnRectangle && buildingsVisible) {
+      fetchBuildingFootprints(mapRef.current);
+    }
+  }, [drawnRectangle, buildingsVisible, fetchBuildingFootprints]);
   
   // Drag and drop GeoJSON handling
   useEffect(() => {

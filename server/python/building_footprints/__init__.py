@@ -1,0 +1,1 @@
+# Building footprint fetching functions
