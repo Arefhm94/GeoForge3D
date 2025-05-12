@@ -1,0 +1,33 @@
+{
+  "name": "geo-building-extractor",
+  "version": "1.0.0",
+  "description": "A web application for extracting building footprints from a world map.",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "axios": "^0.21.1",
+    "leaflet": "^1.7.1",
+    "react-leaflet": "^3.2.0"
+  },
+  "devDependencies": {
+    "vite": "^2.0.0",
+    "eslint": "^7.0.0",
+    "eslint-plugin-react": "^7.0.0"
+  },
+  "keywords": [
+    "geo",
+    "map",
+    "extraction",
+    "building",
+    "footprints"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

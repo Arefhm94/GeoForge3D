@@ -1,0 +1,8 @@
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+GeoAlchemy2
+requests
+gunicorn
+marshmallow
+marshmallow-sqlalchemy
