@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    networks:
+      - app-network
+
+  map-service:
+    build:
+      context: ./services/map-service
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    networks:
+      - app-network
+
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    ports:
+      - "8003:80"
+    networks:
+      - app-network
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

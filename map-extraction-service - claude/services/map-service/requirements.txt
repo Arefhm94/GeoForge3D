@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+geopy
+shapely
+pydantic
+sqlalchemy
+asyncpg
+aiofiles
+python-multipart
+pytest
+httpx
